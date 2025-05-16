@@ -1,0 +1,7 @@
+- name: Provision EC2 with configurations
+  hosts: prod_server
+  become: true
+  become_method: sudo
+  become_user: root
+  roles:
+    - project-configuration

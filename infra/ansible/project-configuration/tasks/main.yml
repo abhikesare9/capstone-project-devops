@@ -1,0 +1,60 @@
+---
+# tasks file for project-configuration
+- name: installation of docker
+  yum:
+    name: docker
+    state: present
+
+- name: starting docker
+  service:
+    name: docker
+    state: started
+
+- name: dowloading terraform
+  command: >
+    yum-config-manager --add-repo https://rpm.releases.hashicorp.com/AmazonLinux/hashicorp.repo
+  args:
+    creates: /etc/yum.repos.d/hashicorp.repo
+
+- name: installation of terraform
+  yum:
+    name: terraform
+    state: present
+
+
+# - name: downloading curl command
+#   yum:
+#     name: curl
+#     state: present
+
+
+- name: installation of kubectl
+  ansible.builtin.shell: curl -LO https://dl.k8s.io/release/v1.33.0/bin/linux/amd64/kubectl && \
+    install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+
+
+- name: installation of java
+  yum:
+    name: java-17-amazon-corretto
+    state: present
+
+
+- name: installation of jenkins
+  command: wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo
+
+- name: Import a key from a url for jenkins
+  ansible.builtin.rpm_key:
+    state: present
+    key: https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
+
+
+- name: installation of jenkins
+  yum:
+    name: jenkins
+    state: present
+  
+
+- name: starting jenkins
+  service:
+    name: jenkins
+    state: started
