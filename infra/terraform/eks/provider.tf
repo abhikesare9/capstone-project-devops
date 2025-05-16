@@ -1,3 +1,7 @@
+provider "aws" {
+  region = "us-east-1"
+}
+
 terraform {
   required_providers {
     aws = {
@@ -7,15 +11,12 @@ terraform {
   }
 }
 
-# Configure the AWS Provider
-provider "aws" {
-  region = "us-east-1"
-}
 
 terraform {
   backend "s3" {
     bucket = "eiminenace-capstone-project"
-    key    = "backend/ecr/terraform.tfstate"
+    key    = "backend/eks/terraform.tfstate"
     region = "us-east-1"
   }
 }
+

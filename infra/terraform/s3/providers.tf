@@ -11,11 +11,3 @@ terraform {
 provider "aws" {
   region = "us-east-1"
 }
-
-terraform {
-  backend "s3" {
-    bucket = "eiminenace-capstone-project"
-    key    = "backend/ecr/terraform.tfstate"
-    region = "us-east-1"
-  }
-}
