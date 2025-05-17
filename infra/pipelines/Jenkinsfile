@@ -1,0 +1,37 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('clean up ') {
+            steps {
+                sh 'rm -rf *'
+            }
+        }
+        stage('cloning git repo'){
+            steps{
+                sh 'git clone https://github.com/abhikesare9/capstone-project-devops.git '
+            }
+        }
+        stage('creating vpc'){
+            steps {
+                sh 'cd infra/terraform/vpc'
+                sh 'terraform init'
+                sh 'terraform apply -auto-approve=true'
+            }
+        }
+        stage('creating ecr'){
+            steps {
+                sh 'cd infra/terraform/ecr'
+                sh 'terraform init'
+                sh 'terraform apply -auto-approve=true'
+            }
+        }
+        stage('creating eks'){
+            steps {
+                sh 'cd infra/terraform/eks'
+                sh 'terraform init'
+                sh 'terraform apply -auto-approve=true'
+            }
+        }
+    }
+}
