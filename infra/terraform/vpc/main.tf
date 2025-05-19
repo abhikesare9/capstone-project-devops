@@ -9,6 +9,7 @@ resource "aws_vpc" "devops_project" {
 resource "aws_subnet" "public_subnet_1" {
   vpc_id     = aws_vpc.devops_project.id
   cidr_block = var.public_subnet_1
+  availability_zone = "us-east-1a" 
 
   tags = {
     Name = var.common_tag
@@ -19,6 +20,7 @@ resource "aws_subnet" "public_subnet_1" {
 resource "aws_subnet" "public_subnet_2" {
   vpc_id     = aws_vpc.devops_project.id
   cidr_block = var.public_subnet_2
+  availability_zone = "us-east-1b"
 
   tags = {
     Name = var.common_tag

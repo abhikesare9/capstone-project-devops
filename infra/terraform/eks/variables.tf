@@ -76,12 +76,12 @@ variable profile {
 
 variable vpc_id {
   type        = string
-  default     = "vpc-0f89053a07df872f3"
+  default     = "vpc-0601551ed90c6d9f6"
   description = "description"
 }
 
 variable subnet_ids {
   type        = list
-  default     = ["subnet-0eed4cce3b2e9fa29","subnet-0da9a1476b4e6453c"]
+  default     = ["subnet-058f52152d620e822","subnet-0e66b368e185b3742"]
   description = "description"
 }
