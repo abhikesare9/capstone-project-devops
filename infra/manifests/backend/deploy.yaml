@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: rag-backend
+  name: rag-backend
+  namespace: rag
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rag-backend
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: rag-backend
+    spec:
+      containers:
+      - image: 869935100386.dkr.ecr.us-east-1.amazonaws.com/backend:rag_backend
+        name: backend
+        resources: {}
+status: {}
