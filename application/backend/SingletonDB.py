@@ -6,7 +6,7 @@ from bot.embeddings import GeminiEmbeddingFunction
 from typing import List
 
 class ChromaDBSingleton():
- _chroma_instance = None   
+    _chroma_instance = None   
     _chroma_lock = Lock()
 
     def __new__(cls):

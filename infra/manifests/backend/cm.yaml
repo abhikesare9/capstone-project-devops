@@ -1,7 +1,7 @@
 apiVersion: v1
 data:
   config.json: "{\n    \"MLEngine\": {\n      \"GOOGLE_API_KEY\": \"AIzaSyBckfXR5ozql3JDFi3UOZ4ciztyq9YCbuo\"\n
-    \   },\n    \"DB_Config\": {\n      \"DB_HOST\": \"localhost\",\n      \"DB_PORT\":
+    \   },\n    \"DB_Config\": {\n      \"DB_HOST\": \"chromadb.rag\",\n      \"DB_PORT\":
     \"8000\"\n    }\n}\n  "
 kind: ConfigMap
 metadata:

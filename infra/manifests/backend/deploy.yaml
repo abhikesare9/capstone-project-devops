@@ -1,7 +1,6 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  creationTimestamp: null
   labels:
     app: rag-backend
   name: rag-backend
@@ -14,12 +13,18 @@ spec:
   strategy: {}
   template:
     metadata:
-      creationTimestamp: null
       labels:
         app: rag-backend
     spec:
       containers:
-      - image: 869935100386.dkr.ecr.us-east-1.amazonaws.com/backend:rag_backend
-        name: backend
-        resources: {}
+        - image: 869935100386.dkr.ecr.us-east-1.amazonaws.com/backend:rag_backend_2
+          name: backend
+          resources: {}
+          volumeMounts:
+            - name: backend-config-volume
+              mountPath: /app
+      volumes:
+        - name: backend-config-volume
+          configMap:
+            name: backend-config
 status: {}

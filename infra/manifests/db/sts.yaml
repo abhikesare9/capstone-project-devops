@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: chromadb
+  namespace: rag
 spec:
   selector:
     matchLabels:
@@ -15,7 +16,7 @@ spec:
     spec:
       containers:
         - name: chromadb
-          image: chromadb/chromadb:latest  # Or your preferred tag
+          image: 869935100386.dkr.ecr.us-east-1.amazonaws.com/backend:rag_db  # Or your preferred tag
           ports:
             - containerPort: 8000
               name: http
@@ -25,11 +26,7 @@ spec:
           env:
             - name: IS_PERSISTENT
               value: "true"
-  volumeClaimTemplates:
-    - metadata:
-        name: chromadb-storage
-      spec:
-        accessModes: ["ReadWriteOnce"]
-        resources:
-          requests:
-            storage: 5Gi
+      volumes:
+        - name: chromadb-storage
+          persistentVolumeClaim:
+            claimName: rag-pvc

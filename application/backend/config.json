@@ -1,10 +1,10 @@
 {
     "MLEngine": {
-      "GOOGLE_API_KEY": "AIzaSyD01BRG7hW67Z4JXPouWeQyf42JLGIs6eE"
+      "GOOGLE_API_KEY": "AIzaSyBckfXR5ozql3JDFi3UOZ4ciztyq9YCbuo"
     },
     "DB_Config": {
       "DB_HOST": "localhost",
       "DB_PORT": "8000"
     }
-  }
+}
   
