@@ -1,0 +1,74 @@
+pipeline {
+    agent any
+
+    environment {
+        AWS_REGION = 'us-east-1' // change to your desired region
+        AWS_ACCESS_KEY_ID     = credentials('aws-access-key-id')
+        AWS_SECRET_ACCESS_KEY = credentials('aws-secret-access-key')
+    }
+
+    
+
+    stages {
+        stage('clean up ') {
+            steps {
+                sh 'rm -rf *'
+            }
+        }
+        stage('Install AWS CLI') {
+            steps {
+                sh '''
+                curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+                unzip -q awscliv2.zip
+                sudo ./aws/install
+                aws --version
+                '''
+            }
+        }
+
+        stage('Configure AWS CLI') {
+            steps {
+                sh '''
+                mkdir -p ~/.aws
+
+                cat > ~/.aws/credentials <<- EOM
+                [default]
+                aws_access_key_id=${AWS_ACCESS_KEY_ID}
+                aws_secret_access_key=${AWS_SECRET_ACCESS_KEY}
+                EOM
+
+                cat > ~/.aws/config <<- EOM
+                [default]
+                region=${AWS_REGION}
+                output=json
+                EOM
+                '''
+            }
+        }
+
+        stage('Login to AWS ECR') {
+            steps {
+                sh '''
+                aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $(aws sts get-caller-identity --query "Account" --output text).dkr.ecr.${AWS_REGION}.amazonaws.com
+                '''
+            }
+        }
+        stage('Cloning repo') {
+            steps {
+                sh '''
+                git clone https://github.com/abhikesare9/capstone-project-devops.git
+                '''
+            }
+        }
+        stage('building docker image and tagging and pushing docker iamge') {
+            steps {
+                sh '''
+                cd capstone-project-devops/application/backend/
+                docker build -t image:backend .
+                docker tag image:backend 869935100386.dkr.ecr.us-east-1.amazonaws.com/backend:${BUILD_NUMBER}
+                docker push 869935100386.dkr.ecr.us-east-1.amazonaws.com/backend:${BUILD_NUMBER}
+                '''
+            }
+        }
+    }
+}

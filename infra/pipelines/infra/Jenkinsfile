@@ -33,5 +33,12 @@ pipeline {
                 sh 'terraform apply -auto-approve=true'
             }
         }
+        stage('Creating ec2'){
+            steps {
+                sh 'cd infra/terraform/ec2'
+                sh 'terraform init'
+                sh 'terraform apply -auto-approve=true'
+            }
+        }
     }
 }

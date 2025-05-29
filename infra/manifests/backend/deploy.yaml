@@ -17,12 +17,13 @@ spec:
         app: rag-backend
     spec:
       containers:
-        - image: 869935100386.dkr.ecr.us-east-1.amazonaws.com/backend:rag_backend_2
+        - image: 869935100386.dkr.ecr.us-east-1.amazonaws.com/backend:rag_backend_3
           name: backend
           resources: {}
           volumeMounts:
             - name: backend-config-volume
-              mountPath: /app
+              mountPath: /opt/config.json
+              subPath: config.json
       volumes:
         - name: backend-config-volume
           configMap:

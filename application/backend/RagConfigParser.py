@@ -7,7 +7,7 @@ class MLConfigParser:
 
     def __init__(self):
         self.logger = SingletonLogger().get_logger()
-    def __new__(cls, config_file='config.json'):
+    def __new__(cls, config_file='/opt/config.json'):
         if cls._instance is None:
             cls._instance = super(MLConfigParser, cls).__new__(cls)
             cls._instance.config_file = config_file
